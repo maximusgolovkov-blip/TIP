@@ -1,0 +1,55 @@
+Контрольная работа % 1
+1)Описать алгоритм заваривания чая
+1. Желание попить чай(начало)
+2. Поход на кухню
+3. Поставить чайник
+4. Положить заварку в кружку
+5. Залить кипятком
+6. Разбавить питьевой водой
+7. Сделать глоток
+2)
+![[Проект Scratch (1).sb3]]
+
+3)
+~~~c++
+#include <iostream>
+
+using namespace std;
+
+int main() {
+	float z;
+	cin >> z;
+	float res = 10.5 + (2.7 * z);
+	cout << res;
+
+
+	return  0;
+}
+~~~
+4)
+~~~c++
+#include <iostream>
+
+using namespace std;
+
+int main() {
+	string a;
+	a = 1;
+	cout << "Введите символ" << endl;
+	cin >> a;
+	if (a == "E") {
+		cout << "Golovkov Maxim";
+	}
+	if(a == "p") {
+		int b, c;
+		cin >> b >> c;
+		cout << max(b, c);
+	}
+	if(a == "h") {
+		cout << "ВВедите символ еще раз" << endl;
+	}
+
+
+	return  0;
+}
+~~~
