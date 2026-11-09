@@ -1,0 +1,148 @@
+задача 1
+#include <iostream>
+using namespace std;
+
+int main() {
+    int n, m;
+    int a[100][100];
+    int dp[100][100];
+    int ri[200], rj[200];
+
+    cin >> n >> m;
+
+    for (int i = 0; i < n; i++)
+        for (int j = 0; j < m; j++)
+            cin >> a[i][j];
+
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < m; j++) {
+            if (i == 0 && j == 0) {
+                dp[i][j] = a[i][j];
+            }
+            else if (i == 0) {
+                dp[i][j] = a[i][j] + dp[i][j - 1];
+            }
+            else if (j == 0) {
+                dp[i][j] = a[i][j] + dp[i - 1][j];
+            }
+            else {
+                if (dp[i - 1][j] > dp[i][j - 1])
+                    dp[i][j] = a[i][j] + dp[i - 1][j];
+                else
+                    dp[i][j] = a[i][j] + dp[i][j - 1];
+            }
+        }
+    }
+
+    int len = 0;
+    int i = n - 1;
+    int j = m - 1;
+
+    while (true) {
+        ri[len] = i;
+        rj[len] = j;
+        len++;
+
+        if (i == 0 && j == 0) break;
+
+        if (i == 0) {
+            j--;
+        }
+        else if (j == 0) {
+            i--;
+        }
+        else if (dp[i - 1][j] > dp[i][j - 1]) {
+            i--;
+        }
+        else {
+            j--;
+        }
+    }
+
+    cout << "Максимальная сумма: " << dp[n - 1][m - 1] << endl;
+    for (int k = len - 1; k >= 0; k--)
+        cout << ri[k] << " " << rj[k] << endl;
+
+    return 0;
+}
+
+задача 2 
+#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+int main() {
+    int n, d;
+    cin >> n >> d;
+
+    vector<int> a(n);
+    for (int i = 0; i < n; i++)
+        cin >> a[i];
+
+    sort(a.begin(), a.end());
+
+    int left = 0;
+    int right = a[n - 1] - a[0];
+    int answer = right;
+
+    while (left <= right) {
+        int mid = (left + right) / 2;
+        int days = 1;
+        int start = 0;
+
+        for (int i = 1; i < n; i++) {
+            if (a[i] - a[start] > mid) {
+                days++;
+                start = i;
+            }
+        }
+
+        if (days <= d) {
+            answer = mid;
+            right = mid - 1;
+        } else {
+            left = mid + 1;
+        }
+    }
+
+    cout << answer << endl;
+
+    return 0;
+}
+Задача 3
+#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+int main() {
+    int n, k, l;
+    cin >> n >> k >> l;
+
+    vector<int> a(n);
+    for (int i = 0; i < n; i++)
+        cin >> a[i];
+
+    sort(a.rbegin(), a.rend());
+
+    int sum = 0;
+    int taken = 0;
+    int same = 0;
+
+    for (int i = 0; i < n && taken < k; i++) {
+        if (i > 0 && a[i] == a[i - 1])
+            same++;
+        else
+            same = 1;
+
+        if (same <= l) {
+            sum += a[i];
+            taken++;
+        }
+    }
+
+    cout << sum << endl;
+
+    return 0;
+}
